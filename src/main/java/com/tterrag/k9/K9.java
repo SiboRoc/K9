@@ -173,7 +173,7 @@ public class K9 {
 
             .eventService("Increments", MessageCreateEvent.class, events -> events
                     .filter(this::isUser)
-                    .flatMap(IncrementListener.INSTANCE::onMessage))
+                    .flatMap(IncrementListener.INSTANCE::onMessage));
 
             // I'll add this back when/if it's needed
             /*
@@ -181,13 +181,13 @@ public class K9 {
                     .filter(this::isUser)
                     .doOnNext(EnderIOListener.INSTANCE::onMessage))
             */
-            .service("Yarn Downloader", YarnDownloader.INSTANCE::start)
-            .service("MCP Downloader", McpDownloader.INSTANCE::start);
 
+/*
         if (args.yarn2mcpOutput != null) {
             final Yarn2McpService yarn2mcp = new Yarn2McpService(args.yarn2mcpOutput, args.yarn2mcpUser, args.yarn2mcpPass);
             services.service("Yarn-Over-MCP", yarn2mcp::start);
         }
+*/
 
         return Mono.fromRunnable(commands::slurpCommands)
                 .then(gateway.login())
